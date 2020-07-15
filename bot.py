@@ -53,7 +53,7 @@ if __name__ == "__main__":
         logger.info("Shutting down salbotlp")
         await bot.logout()
 
-    cogs = []
+    cogs = ["cogs.translate"]
 
     bot.load_extensions(cogs)
     bot.run(TOKEN)
