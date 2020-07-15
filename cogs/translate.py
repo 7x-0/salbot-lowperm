@@ -79,6 +79,11 @@ class Translate(commands.Cog):
 
         await ctx.channel.send(embed=embed)
 
+    @translate.error
+    async def tlerr(self, ctx: commands.Context, error):
+        if isinstance(error, commands.MissingPermissions):
+            await ctx.channel.send("This command can only be used in bot spam channels.")
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Translate(bot))
