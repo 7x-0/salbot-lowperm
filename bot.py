@@ -4,6 +4,7 @@ Created by vcokltfre - 2020-07-15
 
 import discord
 from discord.ext import commands
+from discord.ext.commands import has_any_role
 
 import logging
 from salbotlp_secrets.config import TOKEN
@@ -43,6 +44,12 @@ if __name__ == "__main__":
         max_messages=10000,
         allowed_mentions=discord.AllowedMentions(everyone=False, users=True, roles=False)
         )
+
+    @bot.command(name="restart")
+    @has_any_role("Administrator", "Moderator")
+    async def restart(ctx):
+        logger.info("Shutting down salbotlp")
+        await bot.logout()
 
     cogs = []
 
