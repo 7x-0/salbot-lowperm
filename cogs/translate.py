@@ -82,7 +82,8 @@ class Translate(commands.Cog):
     @translate.error
     async def tlerr(self, ctx: commands.Context, error):
         if isinstance(error, commands.MissingPermissions):
-            await ctx.channel.send("This command can only be used in bot spam channels.")
+            await ctx.message.delete()
+            await ctx.channel.send("This command can only be used in bot spam channels.", delete_after=10)
 
 
 def setup(bot: commands.Bot):
