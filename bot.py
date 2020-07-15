@@ -27,10 +27,11 @@ class Bot(commands.Bot):
         """Loads a list of cogs"""
         for cog in cogs:
             try:
-                super().load_extension()
+                super().load_extension(cog)
                 logger.info(f"Loaded cog {cog} successfully.")
-            except:
+            except Exception as e:
                 logger.error(f"Failed to load cog {cog}.")
+                print(e)
 
     async def on_error(self, event: str, *args, **kwargs) -> None:
         """Log errors raised in event listeners rather than printing them to stderr."""
