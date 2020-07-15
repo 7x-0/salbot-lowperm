@@ -48,6 +48,7 @@ if __name__ == "__main__":
     @bot.command(name="restart")
     @has_any_role("Administrator", "Moderator")
     async def restart(ctx: commands.Context):
+        await ctx.channel.send("Restarting salbot...")
         logger.info("Shutting down salbotlp")
         await bot.logout()
 
