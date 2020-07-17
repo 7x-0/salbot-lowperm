@@ -1,21 +1,27 @@
 import json
 from pathlib import Path
 
-def make_data() -> bool:
-    path = Path("./data/")
-    if not path.exists():
-        path.mkdir()
-        return True
-    return False
+DATAPATH = Path() / "../" / "data"
+if not DATAPATH.exists():
+    DATAPATH.mkdir()
 
-def make_cfg(name: str, initial_data: object = []) -> bool:
-    path = Path(f"./data/{name}.json")
-    if not path.exists():
-        with open(f"./data/{name}.json", 'w') as f:
-            json.dump(initial_data, f)
-        return True
-    return False
 
-def write_cfg(name: str, data: object):
-    with open(f"./data/{name}.json", 'w') as f:
-        json.dump(data, f)
+class ConfigUtil:
+    def __init__(self, data_name: str, default=None):
+        self.path: Path = DATAPATH / data_name + ".json"
+        if not self.path.exists():
+            self.data = default
+            with self.path.open("w+") as f:
+                json.dump(self.data, f)
+        else:
+            with self.path.open() as f:
+                self.data = json.load(f)
+
+    def read(self):
+        return self.data
+
+    def write(self, data):
+        self.data = data
+        with self.path.open("w") as f:
+            json.dump(self.data, f)
+
