@@ -27,9 +27,9 @@ class Profile(commands.Cog):
         embed.colour = 0x00FFFF
 
         badges = self.config.read().get(str(user.id), [])
-        description = "Badges:\n"
+        description = ""
         for badge in badges:
-            description += f"{BADGES[badge]} {badge}\n"
+            description += f"{BADGES[badge]} {badge.replace('_', ' ')}\n"
         embed.description = description
 
         await ctx.send(embed=embed)
@@ -43,7 +43,7 @@ class Profile(commands.Cog):
     async def give(self, ctx, user: discord.User, badge):
         config = self.config.read()
         badge = badge.lower()
-        user_badges = config.get(user.id, [])
+        user_badges = config[str(user.id)]
         if badge in user_badges:
             return await ctx.send("This user already has this badge!")
         user_badges.append(badge)
