@@ -5,8 +5,7 @@ Created by vcokltfre - 2020-07-17
 import discord
 from discord.ext import commands
 from discord.ext.commands import has_any_role
-import json
-from helpers.config import make_cfg, write_cfg
+from helpers.config import ConfigUtil
 
 
 class Dadbot(commands.Cog):
@@ -14,29 +13,26 @@ class Dadbot(commands.Cog):
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        make_cfg("dadbot", {
-            "channel_blacklist":[],
-            "person_blacklist":[],
-            "enabled":True
+        self.config = ConfigUtil("dadbot", default={
+            "channel_blacklist": [],
+            "person_blacklist": [],
+            "enabled": False
         })
 
-    def get_config(self) -> dict:
-        with open("./data/dadbot.json") as f:
-            return json.load(f)
 
     def add_blacklist(self, typ: str, uid: int):
-        cfg = self.get_config()
+        cfg = self.config.read()
         cfg[f"{typ}_blacklist"].append(uid) if not uid in cfg[f"{typ}_blacklist"] else None
-        write_cfg("dadbot", cfg)
+        self.config.write(cfg)
 
     def remove_blacklist(self, typ: str, uid: int):
-        cfg = self.get_config()
+        cfg = self.config.read()
         cfg[f"{typ}_blacklist"].pop(cfg[f"{typ}_blacklist"].index(uid)) if uid in cfg[f"{typ}_blacklist"] else None
-        write_cfg("dadbot", cfg)
+        self.config.write(cfg)
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        cfg = self.get_config()
+        cfg = self.config.read()
         if message.author.id in cfg[f"person_blacklist"] or message.channel.id in cfg[f"channel_blacklist"] or not cfg["enabled"]:
             return
         content = message.content.lower()
@@ -69,7 +65,7 @@ class Dadbot(commands.Cog):
     @dad.command(name="list")
     async def dadlist(self, ctx: commands.Context):
         """List channel and user IDs in the blacklist"""
-        cfg = self.get_config()
+        cfg = self.config.read()
         channels = "\n".join([str(i) for i in cfg["channel_blacklist"]])
         people = "\n".join([str(i) for i in cfg["person_blacklist"]])
 
@@ -82,17 +78,17 @@ class Dadbot(commands.Cog):
     @dad.command(name="enable")
     async def dadenable(self, ctx: commands.Context):
         """Enable dad bot responses persistently"""
-        cfg = self.get_config()
+        cfg = self.config.read()
         cfg["enabled"] = True
-        write_cfg("dadbot", cfg)
+        self.config.write(cfg)
         await ctx.channel.send("Enabled dad bot responses.")
 
     @dad.command(name="disable")
     async def daddisable(self, ctx: commands.Context):
         """Disable dad bot responses persistently"""
-        cfg = self.get_config()
+        cfg = self.config.read()
         cfg["enabled"] = False
-        write_cfg("dadbot", cfg)
+        self.config.write(cfg)
         await ctx.channel.send("Disabled dad bot responses.")
 
 
