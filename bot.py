@@ -8,10 +8,9 @@ from discord.ext.commands import has_any_role
 
 import logging
 from salbotlp_secrets.config import TOKEN
-from helpers.config import make_data
+import helpers.config
 
 logger = logging.getLogger("salbot_lp")
-make_data()
 
 
 class Bot(commands.Bot):

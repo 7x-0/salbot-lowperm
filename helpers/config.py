@@ -8,7 +8,7 @@ if not DATAPATH.exists():
 
 class ConfigUtil:
     def __init__(self, data_name: str, default=None):
-        self.path: Path = DATAPATH / data_name + ".json"
+        self.path: Path = DATAPATH / (data_name + ".json")
         if not self.path.exists():
             self.data = default
             with self.path.open("w+") as f:
