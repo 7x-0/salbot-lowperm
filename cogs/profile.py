@@ -6,8 +6,7 @@ import discord
 from discord.ext import commands
 from helpers.checks import botspam, MOD_ROLES
 from salbotlp_secrets.config import BADGES
-from pathlib import Path
-import json
+from helpers.config import ConfigUtil
 
 
 class Profile(commands.Cog):
@@ -16,12 +15,7 @@ class Profile(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-        self.badge_path = Path() / "salbotlp_secrets" / "badges.json"
-        if self.badge_path.exists():
-            with self.badge_path.open() as badge_file:
-                self.badge_users = json.load(badge_file)
-        else:
-            self.badge_users = {}
+        self.config = ConfigUtil("badges", default={})
 
     @commands.command()
     @botspam()
@@ -32,7 +26,7 @@ class Profile(commands.Cog):
         embed.set_author(name=user, icon_url="https://cdn.discordapp.com/emojis/547141731850780672.png")
         embed.colour = 0x00FFFF
 
-        badges = self.badge_users.get(str(user.id), [])
+        badges = self.config.read().get(str(user.id), [])
         description = ""
         for badge in badges:
             description += BADGES[badge] + " "
@@ -47,15 +41,14 @@ class Profile(commands.Cog):
 
     @badge.command()
     async def give(self, ctx, user: discord.User, badge):
+        config = self.config.read()
         badge = badge.lower()
-        user_badges = self.badge_users.get(user.id, [])
+        user_badges = config.get(user.id, [])
         if badge in user_badges:
             return await ctx.send("This user already has this badge!")
         user_badges.append(badge)
-        self.badge_users[str(user.id)] = user_badges  # Json is stupid, although full database would be overkill for this
-
-        with self.badge_path.open("w") as badge_file:
-            json.dump(self.badge_users, badge_file)
+        config[str(user.id)] = user_badges
+        self.config.write(config)
         await ctx.send("Done")
 
 
