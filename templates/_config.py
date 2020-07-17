@@ -8,7 +8,3 @@ MOD_ROLES = ["Administrator", "Moderator"]
 
 BOT_SPAM_ONLY = True # Whether the bot should only allow commands in a bot spam channel to non exempt roles
 BOT_SPAM_CHANNELS = [1234567890, 2345678910]
-
-BADGES = {
-    "contributor": "<:contributor:733427564420530178>"
-}
