@@ -13,3 +13,7 @@ def make_cfg(name: str, initial_data: object = []) -> bool:
             json.dump(initial_data, f)
         return True
     return False
+
+def write_cfg(name: str, data: object):
+    with open(f"./data/{name}.json", 'w') as f:
+        json.dump(data, f)
