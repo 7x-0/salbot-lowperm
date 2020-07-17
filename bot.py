@@ -8,8 +8,10 @@ from discord.ext.commands import has_any_role
 
 import logging
 from salbotlp_secrets.config import TOKEN
+from helpers.config import make_data
 
 logger = logging.getLogger("salbot_lp")
+make_data()
 
 
 class Bot(commands.Bot):
@@ -54,7 +56,7 @@ if __name__ == "__main__":
         logger.info("Shutting down salbotlp")
         await bot.logout()
 
-    cogs = ["cogs.translate", "cogs.profile"]
+    cogs = ["cogs.translate", "cogs.dadbot", "cogs.profile"]
 
     bot.load_extensions(cogs)
     bot.run(TOKEN)

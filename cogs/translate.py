@@ -79,6 +79,30 @@ class Translate(commands.Cog):
 
         await ctx.channel.send(embed=embed)
 
+    @translate.command(name="binascii")
+    async def tlbinascii(self, ctx: commands.Context, *text):
+        """Translate text from binary (eg. 10110000 10100011) to ASCII"""
+        text = " ".join(text)
+
+        txt = "".join(chr(int(f"0b{x}",2)) for x in text.split(' '))
+
+        embed = discord.Embed(title="Translate", description=f"Translating from binary to ASCII")
+        embed.add_field(name="Result Text", value=txt)
+
+        await ctx.channel.send(embed=embed)
+
+    @translate.command(name="asciibin")
+    async def tlasciibin(self, ctx: commands.Context, *text):
+        """Translate text from ASCII to binary"""
+        text = " ".join(text)
+
+        txt =  " ".join(bin(ord(x)).replace('0b','') for x in text)
+
+        embed = discord.Embed(title="Translate", description=f"Translating from ASCII to binary")
+        embed.add_field(name="Result Text", value=txt)
+
+        await ctx.channel.send(embed=embed)
+
     @translate.error
     async def tlerr(self, ctx: commands.Context, error):
         if isinstance(error, commands.MissingPermissions):
