@@ -27,9 +27,9 @@ class Profile(commands.Cog):
         embed.colour = 0x00FFFF
 
         badges = self.config.read().get(str(user.id), [])
-        description = ""
+        description = "Badges:\n"
         for badge in badges:
-            description += BADGES[badge] + " "
+            description += f"{BADGES[badge]} {badge}\n"
         embed.description = description
 
         await ctx.send(embed=embed)
