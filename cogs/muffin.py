@@ -24,6 +24,16 @@ class Muffin(commands.Cog):
         else:
             await ctx.channel.send("No muffin for you!")
 
+    @commands.command(name="waffle")
+    @botspam()
+    async def waffle(self, ctx: commands.Context):
+        """Gives the user a waffle... maybe"""
+        if random.randint(0,3) != 2:
+            with open("static_data/waffles.jpg", 'rb') as f:
+                await ctx.channel.send(file=discord.File(f))
+        else:
+            await ctx.channel.send("No waffle for you!")
+
 
 
 def setup(bot: commands.Bot):
