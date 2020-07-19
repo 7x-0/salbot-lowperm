@@ -18,7 +18,7 @@ class ErrorHandler(commands.Cog):
             await ctx.message.delete()
             await ctx.send(str(error), delete_after=30)
         else:
-            await ctx.send("Oh no! Something went wrong, please us `%help` for help.")
+            await ctx.send("Oh no! Something went wrong, please us `%help` for help.", delete_after=30)
 
 
 def setup(bot: commands.Bot):
