@@ -13,6 +13,6 @@ def botspam():
         if any([i.name in MOD_ROLES for i in ctx.author.roles]) or ctx.channel.id in BOT_SPAM_CHANNELS:
             return True
 
-        raise commands.errors.MissingPermissions(["BotspamOverride"])
+        raise commands.errors.MissingPermissions(["botspamanywhere"])
 
     return commands.check(check)
