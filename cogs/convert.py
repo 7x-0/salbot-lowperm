@@ -15,13 +15,13 @@ class Convert(commands.Cog):
         self.bot = bot
 
     @commands.command(name="irgb")
-    @botspam
+    @botspam()
     async def irgb(self, ctx, i: int):
         """Get RGB values from an integer"""
         await ctx.channel.send(str(getRGBfromI(i)))
 
     @commands.command(name="rgbi")
-    @botspam
+    @botspam()
     async def rgbi(self, ctx, r: int, g: int, b: int):
         """Get an integer from RGB values"""
         await ctx.channel.send(str(getIfromRGB(r,b,g)))
