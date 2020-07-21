@@ -40,7 +40,7 @@ class Profile(commands.Cog):
         pass
 
     @badge.command()
-    async def give(self, ctx, user: discord.User, badge):
+    async def give(self, ctx, user: discord.User, badge: str):
         config = self.config.read()
         badge = badge.lower()
         user_badges = config[str(user.id)]
