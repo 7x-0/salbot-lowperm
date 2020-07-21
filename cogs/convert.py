@@ -24,7 +24,7 @@ class Convert(commands.Cog):
     @botspam()
     async def rgbi(self, ctx, r: int, g: int, b: int):
         """Get an integer from RGB values"""
-        await ctx.channel.send(str(getIfromRGB(r,b,g)))
+        await ctx.channel.send(str(getIfromRGB((r,b,g))))
 
 
 def setup(bot: commands.Bot):
