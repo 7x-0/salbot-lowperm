@@ -102,7 +102,19 @@ class Translate(commands.Cog):
         embed.add_field(name="Result Text", value=txt)
 
         await ctx.channel.send(embed=embed)
+    @translate.command(name="base64decode")
+    async def tlbase64decode(self,ctx: commands.Context, *text):
+        """Decodes a Base64 Encoded Text"""
+        text = " ".join(text)
+        
+        decoded = "".join(chr(int(x,2)) for x in __import__('textwrap').wrap("".join(f"{int(bin('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.index(x))[2:]):08d}"[2:] for x in text if x in 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'),8) if len(x) == 8)
+        embed = discord.Embed(title="Decode", description=f"Decoding from Base64 to normal text")
+        embed.add_field(name="Result Text", value=decoded)
 
+        await ctx.channel.send(embed=embed)
+                                                                                     
+                                                                                     
+    
     @translate.error
     async def tlerr(self, ctx: commands.Context, error):
         if isinstance(error, commands.MissingPermissions):
