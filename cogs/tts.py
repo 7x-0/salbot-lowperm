@@ -180,7 +180,7 @@ class Tts(commands.Cog):
             customlang = 'cy'
             text = text.split(" ", 1)[1]
 
-        lang = random.choice(langs)
+        lang = random.choice(langs) if not customlang else customlang
         obj = gTTS(text=f"{message.author.name if not message.author.name == 'vcokltfre' else 'v c o'} says {text}", lang=lang, slow=False)
         obj.save("data/voice.mp3")
         try:
