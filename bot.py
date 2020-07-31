@@ -5,10 +5,11 @@ Created by vcokltfre - 2020-07-15
 import discord
 from discord.ext import commands
 from discord.ext.commands import has_any_role
+import time
 
 import logging
 from salbotlp_secrets.config import TOKEN
-import helpers.config
+import helpers.config as config
 
 logger = logging.getLogger("salbot_lp")
 
@@ -51,11 +52,13 @@ if __name__ == "__main__":
     @bot.command(name="restart")
     @has_any_role("Administrator", "Moderator")
     async def restart(ctx: commands.Context):
+        cfg = config.ConfigUtil("rslock", {"lock": 0})
+        cfg.write({"lock": round(time.time() + 30), "channel": ctx.channel.id})
         await ctx.channel.send("Restarting SalC1 Bot...")
         logger.info("Shutting down salbotlp")
         await bot.logout()
 
-    cogs = ["cogs.translate", "cogs.dadbot", "cogs.profile", "cogs.errorhandler", "cogs.muffin", "cogs.convert", "cogs.general"]
+    cogs = ["cogs.translate", "cogs.dadbot", "cogs.profile", "cogs.errorhandler", "cogs.muffin", "cogs.convert", "cogs.general", "cogs.startup"]
 
     bot.load_extensions(cogs)
     bot.run(TOKEN)
