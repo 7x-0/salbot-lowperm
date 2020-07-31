@@ -48,7 +48,7 @@ if __name__ == "__main__":
     bot = Bot(
         command_prefix=commands.when_mentioned_or("%"),
         max_messages=10000,
-        allowed_mentions=discord.AllowedMentions(everyone=False, users=True, roles=False),
+        #allowed_mentions=discord.AllowedMentions(everyone=False, users=True, roles=False), #if this is your server you want this enabled, for sblp those perms are off anyway
         help_command=commands.MinimalHelpCommand()
         )
 
@@ -61,7 +61,7 @@ if __name__ == "__main__":
         logger.info("Shutting down salbotlp")
         await bot.logout()
 
-    cogs = ["cogs.translate", "cogs.dadbot", "cogs.profile", "cogs.errorhandler", "cogs.muffin", "cogs.convert", "cogs.general", "cogs.startup", "cogs.rplace"]
+    cogs = ["cogs.translate", "cogs.dadbot", "cogs.profile", "cogs.errorhandler", "cogs.muffin", "cogs.convert", "cogs.general", "cogs.startup", "cogs.rplace", "cogs.tts"]
 
     bot.load_extensions(cogs)
     bot.run(TOKEN)
