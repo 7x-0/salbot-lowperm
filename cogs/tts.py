@@ -175,7 +175,13 @@ class Tts(commands.Cog):
             return
 
         text = message.content
-        obj = gTTS(text=f"{message.author.name if not message.author.name == 'vcokltfre' else 'v c o'} says {text}", lang=random.choice(langs), slow=False)
+        customlang = None
+        if message.author.id == 297045071457681409 and message.content.startswith("cy"):
+            customlang = 'cy'
+            text = text.split(" ", 1)[1]
+
+        lang = random.choice(langs)
+        obj = gTTS(text=f"{message.author.name if not message.author.name == 'vcokltfre' else 'v c o'} says {text}", lang=lang, slow=False)
         obj.save("data/voice.mp3")
         try:
             self.vc.play(discord.FFmpegPCMAudio("data/voice.mp3"))
