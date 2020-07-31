@@ -19,6 +19,18 @@ class Convert(commands.Cog):
         text = " ".join(text)
         await ctx.channel.send(text)
 
+    @commands.command(name="shut")
+    @commands.has_any_role("Administrator", "Moderator", "Private Chat Access")
+    async def shut(self, ctx: commands.Context):
+        await ctx.channel.send("https://shutplea.se")
+        await ctx.delete()
+
+    @commands.command(name="dude")
+    @commands.has_any_role("Administrator", "Moderator", "Private Chat Access")
+    async def dude(self, ctx: commands.Context):
+        await ctx.channel.send("https://shutupdu.de")
+        await ctx.delete()
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Convert(bot))
