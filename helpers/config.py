@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-DATAPATH = Path() / "../" / "data"
+DATAPATH = Path() / "data"
 if not DATAPATH.exists():
     DATAPATH.mkdir()
 
