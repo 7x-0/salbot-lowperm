@@ -23,13 +23,13 @@ class Convert(commands.Cog):
     @commands.has_any_role("Administrator", "Moderator", "Private Chat Access")
     async def shut(self, ctx: commands.Context):
         await ctx.channel.send("https://shutplea.se")
-        await ctx.delete()
+        await ctx.message.delete()
 
     @commands.command(name="dude")
     @commands.has_any_role("Administrator", "Moderator", "Private Chat Access")
     async def dude(self, ctx: commands.Context):
         await ctx.channel.send("https://shutupdu.de")
-        await ctx.delete()
+        await ctx.message.delete()
 
 
 def setup(bot: commands.Bot):
