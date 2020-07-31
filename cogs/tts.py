@@ -7,6 +7,7 @@ from gtts import gTTS
 import discord
 from helpers.config import ConfigUtil
 import json
+import random
 
 config = {
     "permissions": {
@@ -18,6 +19,8 @@ config = {
     "listener_channels":[],
     "command_prefixes": ["%", "!", "?"]
 }
+
+langs = ["en-uk", "en-us", "en-au"]
 
 
 class Tts(commands.Cog):
@@ -153,7 +156,7 @@ class Tts(commands.Cog):
             return
 
         text = " ".join(text)
-        obj = gTTS(text=f"{ctx.author.name if not ctx.author.name == 'vcokltfre' else 'v c o'} says {text}", lang="en", slow=False)
+        obj = gTTS(text=f"{ctx.author.name if not ctx.author.name == 'vcokltfre' else 'v c o'} says {text}", lang=random.choice(langs), slow=False)
         obj.save("data/voice.mp3")
         self.vc.play(discord.FFmpegPCMAudio("data/voice.mp3"))
 
@@ -172,7 +175,7 @@ class Tts(commands.Cog):
             return
 
         text = message.content
-        obj = gTTS(text=f"{message.author.name if not message.author.name == 'vcokltfre' else 'v c o'} says {text}", lang="en", slow=False)
+        obj = gTTS(text=f"{message.author.name if not message.author.name == 'vcokltfre' else 'v c o'} says {text}", lang=random.choice(langs), slow=False)
         obj.save("data/voice.mp3")
         try:
             self.vc.play(discord.FFmpegPCMAudio("data/voice.mp3"))
