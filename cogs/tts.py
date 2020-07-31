@@ -138,6 +138,7 @@ class Tts(commands.Cog):
             return
         channel = ctx.author.voice.channel
         self.vc = await channel.connect()
+        await ctx.channel.send("Joined voice.")
 
     @commands.command(name="vcleave")
     async def leave(self, ctx):
@@ -146,6 +147,7 @@ class Tts(commands.Cog):
             return
         await ctx.voice_client.disconnect()
         self.vc = None
+        await ctx.channel.send("Left voice.")
 
     @commands.command(name="vcsay")
     async def vcsay(self, ctx, *text):
@@ -173,6 +175,7 @@ class Tts(commands.Cog):
                 r = requests.get(attach)
                 f.write(r.content)
             self.vc.play(discord.FFmpegPCMAudio("data/temp.mp3"))
+            await ctx.channel.send("Playing audio...")
 
     @commands.command(name="vcstop")
     async def vcstop(self, ctx):
@@ -180,6 +183,7 @@ class Tts(commands.Cog):
             await ctx.channel.send("You are not permitted to perform this action.")
             return
         self.vc.stop()
+        await ctx.channel.send("Stopped audio playback.")
 
     @commands.Cog.listener()
     async def on_message(self, message):
