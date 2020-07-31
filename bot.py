@@ -20,7 +20,7 @@ class Bot(commands.Bot):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-    async def on_message_edit(before, after):
+    async def on_message_edit(before: discord.Message, after: discord.Message):
         await self.process_commands(after)
 
     def add_cog(self, cog: commands.Cog) -> None:
