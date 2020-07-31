@@ -8,6 +8,7 @@ import discord
 from helpers.config import ConfigUtil
 import json
 import random
+import requests
 
 config = {
     "permissions": {
@@ -159,6 +160,26 @@ class Tts(commands.Cog):
         obj = gTTS(text=f"{ctx.author.name if not ctx.author.name == 'vcokltfre' else 'v c o'} says {text}", lang=random.choice(langs), slow=False)
         obj.save("data/voice.mp3")
         self.vc.play(discord.FFmpegPCMAudio("data/voice.mp3"))
+
+    @commands.command(name="vcmp3")
+    async def vcmp3(self, ctx: commands.Context):
+        if not self.has_perms(ctx.author.id, "admin"):
+            await ctx.channel.send("You are not permitted to perform this action.")
+            return
+
+        if len(ctx.message.attachments) > 0:
+            attach = ctx.message.attachments[0].url
+            with open("data/temp.mp3", 'wb') as f:
+                r = requests.get(attach)
+                f.write(r.content)
+            self.vc.play(discord.FFmpegPCMAudio("data/temp.mp3"))
+
+    @commands.command(name="vcstop")
+    async def vcstop(self, ctx):
+        if not self.has_perms(ctx.author.id, "admin"):
+            await ctx.channel.send("You are not permitted to perform this action.")
+            return
+        self.vc.stop()
 
     @commands.Cog.listener()
     async def on_message(self, message):
