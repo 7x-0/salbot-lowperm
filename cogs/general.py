@@ -4,8 +4,6 @@ Created by vcokltfre - 2020-07-31
 
 import discord
 from discord.ext import commands
-from helpers.checks import botspam
-from helpers.conversions import getRGBfromI, getIfromRGB
 
 
 class Convert(commands.Cog):
