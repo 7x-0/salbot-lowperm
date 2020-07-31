@@ -213,5 +213,9 @@ class Tts(commands.Cog):
         except:
             print("Error: cannot play 2 audio streams simultaneously.")
 
+    @commands.Cog.listener()
+    async def on_connect(self):
+        await self.vc.disconnect()
+
 def setup(bot):
     bot.add_cog(Tts(bot))
