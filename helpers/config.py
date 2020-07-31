@@ -25,3 +25,7 @@ class ConfigUtil:
         with self.path.open("w") as f:
             json.dump(self.data, f)
 
+    def save(self):
+        with self.path.open("w") as f:
+            json.dump(self.data, f)
+
