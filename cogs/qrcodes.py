@@ -25,12 +25,13 @@ class QRCodes(commands.Cog):
             with open("data/temp.png", 'wb') as f:
                 f.write(data.content)
             texts = get_text("data/temp.png")
-            out = ""
-            for text in texts:
-                out += f"{text[0]}: {text[1]}\n\n\n"
-            with open("data/qrdata.txt", 'w') as f:
-                f.write(out)
-            await message.channel.send(file=discord.File(fp="data/qrdata.txt", filename="decoded_qr_data.txt"))
+            if len(texts) > 0:
+                out = ""
+                for text in texts:
+                    out += f"{text[0]}: {text[1]}\n\n\n"
+                with open("data/qrdata.txt", 'w') as f:
+                    f.write(out)
+                await message.channel.send(file=discord.File(fp="data/qrdata.txt", filename="decoded_qr_data.txt"))
 
 
 def setup(bot: commands.Bot):
