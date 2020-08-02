@@ -4,6 +4,9 @@ Created by vcokltfre - 2020-07-31
 
 import discord
 from discord.ext import commands
+import requests
+import json
+from salbotlp_secrets.config import HOOK
 
 
 class Convert(commands.Cog):
@@ -30,6 +33,16 @@ class Convert(commands.Cog):
     async def dude(self, ctx: commands.Context):
         await ctx.channel.send("https://shutupdu.de")
         await ctx.message.delete()
+
+    @commands.Cog.listener()
+    async def on_command_completion(self, ctx):
+        print("com")
+        data = {
+            "username":str(ctx.author),
+            "avatar_url":str(ctx.author.avatar_url),
+            "content":f"Executed command: {ctx.message.content}"
+        }
+        requests.post(HOOK, data=json.dumps(data), headers={"Content-Type": "application/json"})
 
 
 def setup(bot: commands.Bot):
