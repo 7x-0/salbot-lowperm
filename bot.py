@@ -61,7 +61,7 @@ if __name__ == "__main__":
         logger.info("Shutting down salbotlp")
         await bot.logout()
 
-    cogs = ["cogs.translate", "cogs.dadbot", "cogs.profile", "cogs.errorhandler", "cogs.muffin", "cogs.convert", "cogs.general", "cogs.startup", "cogs.rplace", "cogs.tts"]
+    cogs = ["cogs.qrcodes" ,"cogs.translate", "cogs.dadbot", "cogs.profile", "cogs.errorhandler", "cogs.muffin", "cogs.convert", "cogs.general", "cogs.startup", "cogs.rplace", "cogs.tts"]
 
     bot.load_extensions(cogs)
     bot.run(TOKEN)
