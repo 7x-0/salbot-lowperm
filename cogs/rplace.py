@@ -8,6 +8,7 @@ from pathlib import Path
 from PIL import Image
 from helpers.config import ConfigUtil
 from helpers.checks import botspam
+import json
 
 
 class RSPlace(commands.Cog):
@@ -50,6 +51,23 @@ class RSPlace(commands.Cog):
         self.im.save("data/rplace.png")
         with Path("data/rplace.png").open('rb') as f:
             await ctx.channel.send(file=discord.File(f, filename="rplace.png"))
+
+    @commands.commane(name="rpinfo")
+    @commands.has_any_role("Private Chat Access", "Moderator", "Administrator")
+    @botspam()
+    async def rpstats(self, ctx):
+        data = self.cfg.read()
+        writes = data["editcount"]
+        contribs = {}
+        for item in data["edits"]:
+            if item["name"] in contribs:
+                contribs[item["name"]] += 1
+            else:
+                contribs[item["name"]] = 1
+        embed = discord.Embed(title="rplace stats", description=f"Writes: {writes}")
+        embed.add_field(name="Contributors", value=f"```json\n{json.dumps(contribs, indent=2)}```")
+        await ctx.channel.send(embed=embed)
+
 
     @commands.command(name="export")
     @commands.has_any_role("Administrator")
