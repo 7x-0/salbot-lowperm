@@ -43,7 +43,7 @@ class RSPlace(commands.Cog):
         if any(values):
             await ctx.channel.send("One of your values was invalid. They must each be an integer from 0-255\nUsage: `%rplace <x> <y> <r> <g> <b>` where x=0 y=0 is the top left corner")
         self.im.putpixel((pixelx, pixely), (red, green, blue))
-        self.call_update(ctx.author.name, ctx.author.id, (pixelx, pixely, red, green, blue))
+        self.call_update(ctx.author.id, ctx.author.name, (pixelx, pixely, red, green, blue))
 
     @commands.command(name="rpshow")
     @botspam()
@@ -52,7 +52,7 @@ class RSPlace(commands.Cog):
         with Path("data/rplace.png").open('rb') as f:
             await ctx.channel.send(file=discord.File(f, filename="rplace.png"))
 
-    @commands.commane(name="rpinfo")
+    @commands.command(name="rpinfo")
     @commands.has_any_role("Private Chat Access", "Moderator", "Administrator")
     @botspam()
     async def rpstats(self, ctx):
