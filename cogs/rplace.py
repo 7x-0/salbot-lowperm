@@ -51,6 +51,11 @@ class RSPlace(commands.Cog):
         with Path("data/rplace.png").open('rb') as f:
             await ctx.channel.send(file=discord.File(f, filename="rplace.png"))
 
+    @commands.command(name="export")
+    @commands.has_any_role("Administrator")
+    async def rpexport(self, ctx: commands.Context):
+        await ctx.channel.send(file=discord.File(fp="data/rplace.json"))
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(RSPlace(bot))
