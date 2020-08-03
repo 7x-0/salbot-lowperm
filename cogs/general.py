@@ -42,7 +42,7 @@ class Convert(commands.Cog):
             "avatar_url":str(ctx.author.avatar_url),
             "content":f"Executed command: {ctx.message.content}"
         }
-        requests.post(HOOK, data=json.dumps(data), headers={"Content-Type": "application/json"})
+        #requests.post(HOOK, data=json.dumps(data), headers={"Content-Type": "application/json"})
 
 
 def setup(bot: commands.Bot):
