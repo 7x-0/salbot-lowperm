@@ -7,7 +7,8 @@ if not DATAPATH.exists():
 
 
 class ConfigUtil:
-    def __init__(self, data_name: str, default=None):
+    def __init__(self, data_name: str, default=None, autosave=True):
+        self.autosave = autosave
         self.path: Path = DATAPATH / (data_name + ".json")
         if not self.path.exists():
             self.data = default
@@ -22,8 +23,9 @@ class ConfigUtil:
 
     def write(self, data):
         self.data = data
-        with self.path.open("w") as f:
-            json.dump(self.data, f)
+        if self.autosave:
+            with self.path.open("w") as f:
+                json.dump(self.data, f)
 
     def save(self):
         with self.path.open("w") as f:

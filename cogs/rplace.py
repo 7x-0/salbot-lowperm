@@ -20,7 +20,7 @@ class RSPlace(commands.Cog):
             img = Image.new("RGB", (256, 256), color = (0, 0, 0))
             img.save("data/rplace.png")
         self.im = Image.open("data/rplace.png")
-        self.cfg = ConfigUtil("rplace", {"editcount": 0, "edits": []})
+        self.cfg = ConfigUtil("rplace", {"editcount": 0, "edits": []}, autosave=False)
 
     def isvalid(self, value: int):
         if value < 256 and value > -1:
@@ -34,6 +34,7 @@ class RSPlace(commands.Cog):
         self.cfg.write(data)
         if data["editcount"] % 5 == 0:
             self.im.save("data/rplace.png")
+            self.cfg.save()
 
     @commands.command(name="rplace", aliases=["rp"])
     @botspam()
