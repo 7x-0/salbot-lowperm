@@ -70,7 +70,8 @@ if __name__ == "__main__":
         "cogs.muffin", 
         "cogs.convert", 
         "cogs.general", 
-        "cogs.startup"
+        "cogs.startup",
+        "cogs.stonks"
         #"cogs.rplace", 
         #"cogs.tts"
     ]

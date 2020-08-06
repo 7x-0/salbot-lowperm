@@ -3,3 +3,5 @@ googletrans
 pillow
 gtts
 requests
+yahoo_fin
+pandas
